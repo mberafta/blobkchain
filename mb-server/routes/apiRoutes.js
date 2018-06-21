@@ -19,6 +19,17 @@ router.get('/sha256', function (req, res) {
     }
 });
 
+router.get('/mine', function (req, res) {
+    let constantPart = req.query.constantPart;
+    let nonce = 0;
+    let hashResult;
+    while (cryptoHelper.getSHA256(constantPart + nonce.toString()).substring(0, 4) != '0000') {
+        nonce++;
+    }
+    hashResult = cryptoHelper.getSHA256(constantPart + nonce.toString());
+    responseHelper.sendResponse(res, 200, { hash: hashResult });
+});
+
 module.exports = router;
 
 
