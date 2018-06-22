@@ -1,6 +1,8 @@
 function Blockchain() {
     this.chain = [];
     this.pendingTransactions = [];
+
+    this.createNewBlock(100, '0', '0'); // Genesis block (premier bloc qui lance la suite)
 }
 
 Blockchain.prototype.createNewBlock = function (nonce, previousBlockHash, hash) {
@@ -40,10 +42,11 @@ Blockchain.prototype.hashBlock = function (previousBlockHash, currentBlockData) 
     });
 };
 
-Blockchain.prototype.proofOfWork = function (previousBlockHash, currentBlockData) {
+// Obtention d'un hash avec la preuve de travail
+Blockchain.prototype.getNewHash = function (previousBlockHash, currentBlockData) {
     let nonce = 0;
     let hashPromise = this.hashBlock(previousBlockHash, currentBlockData, nonce);
-    hashPromise.done(function (data) {
-        console.log(data);
-    });
+    return hashPromise;
 };
+
+

@@ -27,7 +27,7 @@ router.get('/mine', function (req, res) {
         nonce++;
     }
     hashResult = cryptoHelper.getSHA256(constantPart + nonce.toString());
-    responseHelper.sendResponse(res, 200, { hash: hashResult });
+    responseHelper.sendResponse(res, 200, { hash: hashResult, nonce:nonce });
 });
 
 module.exports = router;
